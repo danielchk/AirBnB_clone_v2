@@ -11,3 +11,8 @@ app.register_blueprint(app_views)
 def teardown(self):
     """teardown to app"""
     models.storage.close()
+
+if __name__ == "__main__":
+    host = getenv("HBNB_API_HOST") or '0.0.0.0'
+    port = getenv("HBNB_API_PORT") or 5000
+    app.run(host=host, port=port, threaded=True)
