@@ -2,7 +2,7 @@
 """Status file"""
 from api.v1.views import app_views
 from flask import jsonify
-from models import storage
+import models
 
 
 @app_views.route('/status')
@@ -14,7 +14,7 @@ def status():
 
 @app_views.route('/stats')
 def stats():
-    """count the different stats"""
+    """Use the new count in the obj clss"""
     c = {"amenities": storage.count("Amenity"),
          "cities": storage.count("City"),
          "places": storage.count("Place"),
