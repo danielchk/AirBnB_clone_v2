@@ -7,14 +7,14 @@ from flask import jsonify, abort, request, make_response
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-def get():
+def get_states():
     """Return the objects without his id"""
     st = [obj.to_dict() for obj in storage.all("State").values()]
     return jsonify(st)
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
-def get_by_id(state_id):
+def get_state_by_id(state_id):
     """Return the objects with his id"""
     obj = storage.get("State", state_id)
     if obj is None:
@@ -24,7 +24,7 @@ def get_by_id(state_id):
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
-def delete(state_id):
+def delete_state_by_id(state_id):
     """Delete with the id info"""
     obj = storage.get("State", state_id)
     if obj is None:
@@ -35,13 +35,8 @@ def delete(state_id):
     return jsonify({})
 
 
-@app_views.errorhandler(400)
-def resource_not_found(e):
-    return jsonify(error=str(e)), 400
-
-
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
-def create():
+def create_state():
     """Create a state object"""
     if not request.get_json():
         return jsonify({'error': 'Not a JSON'}), 400
@@ -54,7 +49,7 @@ def create():
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
-def update(state_id):
+def update_states(state_id):
     """Updates state """
     if not request.get_json():
         return jsonify({'error': 'Not a JSON'}), 400
