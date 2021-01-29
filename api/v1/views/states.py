@@ -32,7 +32,7 @@ def delete(state_id):
     obj.delete()
     storage.save()
     storage.reload()
-    return make_response(jsonify({}), 200)
+    return jsonify({})
 
 
 @app_views.errorhandler(400)
@@ -65,3 +65,7 @@ def update(state_id):
         if k not in ['id', 'created_at', 'updated_at']:
             setattr(obj, k, v)
     return jsonify(obj.to_dict())
+
+
+if __name__ == "__main__":
+    pass
