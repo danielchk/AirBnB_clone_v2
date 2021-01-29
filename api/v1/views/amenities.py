@@ -6,9 +6,9 @@ from models.amenity import Amenity
 from flask import jsonify, abort, request, make_response
 
 
-@app_views.route('/amenities/<amenity_id>',
+@app_views.route('/amenities',
                  methods=['GET'], strict_slashes=False)
-def get_all_amenities(amenity_id):
+def get_all_amenities():
     """return the amenity without id"""
     am = [obj.to_dict() for obj in storage.all("Amenities").values()]
     return jsonify(am)
