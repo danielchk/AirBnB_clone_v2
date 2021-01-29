@@ -5,7 +5,9 @@ from models.state import State
 from flask import jsonify, abort, request, make_response
 
 """ holds class State"""
-@app_views.route('/states', methods=['GET'],strict_slashes=False)
+
+
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get():
     """Return the objects without his id"""
     st = [obj.to_dict() for obj in storage.all("State").values()]
@@ -21,7 +23,8 @@ def get_by_id(state_id):
     return jsonify(obj.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete(state_id):
     """Delete with the id info"""
     obj = storage.get("State", state_id)
