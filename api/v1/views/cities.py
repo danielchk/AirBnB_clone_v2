@@ -58,6 +58,7 @@ def post_city(state_id):
     new_city = City(**data)
     storage.new(new_city)
     storage.save()
+    storage.reload()
     return make_response(jsonify(new_city.to_dict()), 201)
 
 
@@ -74,4 +75,5 @@ def put_city(city_id):
         if k not in ['id', 'created_at', 'updated_at']:
             setattr(obj, k, v)
     storage.save()
+    storage.reload()
     return make_response(jsonify(obj.to_dict()), 200)
