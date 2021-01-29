@@ -1,18 +1,18 @@
 #!/usr/bin/python3
-import models
+from models import storage
 from api.v1.views import app_views
 from models.state import State
 from flask import jsonify, abort, request, make_response
 
 """ holds class State"""
-@app_views.route('/states', methods=['GET'])
+@app_views.route('/states', methods=['GET'],strict_slashes=False)
 def get():
     """Return the objects without his id"""
-    l = [obj.to_dict() for obj in storage.all("State").values()]
-    return jsonify(l)
+    st = [obj.to_dict() for obj in storage.all("State").values()]
+    return jsonify(st)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_by_id(state_id):
     """Return the objects with his id"""
     obj = storage.get("State", state_id)
@@ -21,7 +21,7 @@ def get_by_id(state_id):
     return jsonify(obj.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete(state_id):
     """Delete with the id info"""
     obj = storage.get("State", state_id)
@@ -38,7 +38,7 @@ def resource_not_found(e):
     return jsonify(error=str(e)), 400
 
 
-@app_views.route('/states', methods=['POST'])
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create():
     """Create a state object"""
     if not request.get_json():
@@ -51,7 +51,7 @@ def create():
     return jsonify(obj.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update(state_id):
     """Updates state """
     if not request.get_json():
