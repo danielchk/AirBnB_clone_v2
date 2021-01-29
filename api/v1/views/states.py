@@ -32,7 +32,7 @@ def delete_state_by_id(state_id):
     obj.delete()
     storage.save()
     storage.reload()
-    return jsonify({})
+    return jsonify({}), 200
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
