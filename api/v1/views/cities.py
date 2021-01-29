@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" holds class State"""
+""" holds class City"""
 from models import storage
 from api.v1.views import app_views
 from models.state import State
@@ -39,7 +39,7 @@ def delete_city(city_id):
     obj.delete()
     storage.save()
     storage.reload()
-    return jsonify({})
+    return make_response(jsonify({}), 200)
 
 
 @app_views.route('/states/<state_id>/cities',
@@ -58,6 +58,7 @@ def post_city(state_id):
     new_city = City(**data)
     storage.new(new_city)
     storage.save()
+    return make_response(jsonify(new_city.to_dict()), 201)
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
