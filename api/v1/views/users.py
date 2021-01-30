@@ -11,7 +11,7 @@ from flask import jsonify, abort, request, make_response
 def get_all_user():
     """return user without id"""
     us = [obj.to_dict() for obj in storage.all("User").values()]
-    return jsonify(us)
+    return jsonify(us), 200
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
@@ -20,7 +20,7 @@ def get_id_user(user_id):
     obj = storage.get("User", user_id)
     if obj is None:
         abort(404)
-    return jsonify(obj.to_dict())
+    return jsonify(obj.to_dict()), 200
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'],
@@ -61,4 +61,4 @@ def put_user(user_id):
     for k, v in request.get_json().items():
         if k not in ['id', 'created_at', 'updated_at']:
             setattr(obj, k, v)
-    return jsonify(obj.to_dict())
+    return jsonify(obj.to_dict()), 200
